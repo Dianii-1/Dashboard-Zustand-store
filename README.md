@@ -1,14 +1,11 @@
-# React + TypeScript + Vite + Zustand + TailwindCSS + ReactRouterDom
+# Stores Zustand
 
-Este es un cascarón de proyecto, siéntete libre de usarlo para tus proyectos.
+Este es un proyecto en donde se va a mostrar diferentes stores de zustand.
 
-<img src="https://github.com/Klerith/zustand-mini-curso/blob/main/public/screenshot.png?raw=true" alt="Dashboard Screenshot">
-
-
+<img src="https://github.com/Dianii-1/Dashboard-Zustand-store/blob/main/public/screenshot.png?raw=true" alt="Dashboard Screenshot">
 
 ## Instalar
 
 1. Clonar proyecto
-2. Instalar dependencias ```npm install```
-3. Correr en desarrollo ```npm run dev```
-
+2. Instalar dependencias `npm install`
+3. Correr en desarrollo `npm run dev`
