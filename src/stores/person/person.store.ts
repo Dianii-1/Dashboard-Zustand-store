@@ -1,7 +1,7 @@
 import { create, StateCreator } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 // import { customSessionStorage } from "../storages/session.storage";
-import { firebaseStorage } from "../storages/firebase.storage copy";
+import { firebaseStorage } from "../storages/firebase.storage";
 
 interface PersonState {
   firstName: string;
@@ -28,6 +28,7 @@ const storeApi: StateCreator<
 
 export const usePersonStore = create<PersonState & Actions>()(
   devtools(
+    //se coloca para poder ver el cambio de estado en la extencion de chrome de reduxdevtools
     persist(storeApi, {
       name: "person-store",
       storage: firebaseStorage,
