@@ -5,6 +5,8 @@ import {
 import { Task, TaskStatus } from "../../interfaces";
 import { SingleTask } from "./SingleTask";
 import { DragEvent } from "react";
+import { useTaskStore } from "../../stores";
+import clsx from "clsx";
 
 interface Props {
   title: string;
@@ -13,6 +15,8 @@ interface Props {
 }
 
 export const JiraTasks = ({ title, tasks, value }: Props) => {
+  const isDragging = useTaskStore((state) => !!state.draggingTaskId);
+
   const hanldeDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     console.log("DragOver");
@@ -33,7 +37,10 @@ export const JiraTasks = ({ title, tasks, value }: Props) => {
       onDragOver={hanldeDragOver}
       onDragLeave={hanldeDragLeave}
       onDrop={hanldeDrop}
-      className="!text-black relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full !p-4 3xl:p-![18px]"
+      className={clsx(
+        "!text-black border-4 relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full !p-4 3xl:p-![18px]",
+        { "border-dotted border-blue-400": isDragging }
+      )}
     >
       {/* Task Header */}
       <div className="relative flex flex-row justify-between">
