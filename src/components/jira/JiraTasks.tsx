@@ -4,7 +4,7 @@ import {
 } from "react-icons/io5";
 import { Task, TaskStatus } from "../../interfaces";
 import { SingleTask } from "./SingleTask";
-import { DragEvent } from "react";
+import { DragEvent, useState } from "react";
 import { useTaskStore } from "../../stores";
 import clsx from "clsx";
 
@@ -16,20 +16,21 @@ interface Props {
 
 export const JiraTasks = ({ title, tasks, value }: Props) => {
   const isDragging = useTaskStore((state) => !!state.draggingTaskId);
+  const [onDragOver, setOnDragOver] = useState(false);
 
   const hanldeDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    console.log("DragOver");
+    setOnDragOver(true);
   };
 
   const hanldeDragLeave = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    console.log("DragLeave");
+    setOnDragOver(false);
   };
 
   const hanldeDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    console.log("Drop", value);
+    setOnDragOver(false);
   };
 
   return (
@@ -39,7 +40,10 @@ export const JiraTasks = ({ title, tasks, value }: Props) => {
       onDrop={hanldeDrop}
       className={clsx(
         "!text-black border-4 relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full !p-4 3xl:p-![18px]",
-        { "border-dotted border-blue-400": isDragging }
+        {
+          "border-dotted border-blue-500": isDragging,
+          "border-dotted border-green-500": isDragging && onDragOver,
+        }
       )}
     >
       {/* Task Header */}
