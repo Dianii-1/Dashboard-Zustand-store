@@ -2,6 +2,7 @@ import { create, StateCreator } from "zustand";
 import { Task, TaskStatus } from "../../interfaces";
 import { devtools } from "zustand/middleware";
 import { v4 as uuidv4 } from "uuid";
+// import { immer } from "zustand/middleware/immer";
 
 interface TaskState {
   draggingTaskId?: string;
@@ -30,12 +31,20 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
   },
   addTask: (title, status) => {
     const newTask = { id: uuidv4(), title, status };
+
+    //? Forma convencional de setear el estado
+
     set((state) => ({
       tasks: {
         ...state.tasks,
         [newTask.id]: newTask,
       },
     }));
+
+    //? Forma nativa de zustand para mutar el estado instalando la libreria
+    // set((state) => {
+    //   state.tasks[newTask.id] = newTask;
+    // });
   },
   setDraggingTaskId: (taskId: string) => {
     set({ draggingTaskId: taskId });
@@ -62,4 +71,5 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
   },
 });
 
+// export const useTaskStore = create<TaskState>()(devtools(immer(storeApi)));
 export const useTaskStore = create<TaskState>()(devtools(storeApi));
