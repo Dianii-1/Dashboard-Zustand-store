@@ -1,6 +1,6 @@
 import { create, StateCreator } from "zustand";
 import { Task, TaskStatus } from "../../interfaces";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 import { v4 as uuidv4 } from "uuid";
 // import { immer } from "zustand/middleware/immer";
 
@@ -72,4 +72,6 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
 });
 
 // export const useTaskStore = create<TaskState>()(devtools(immer(storeApi)));
-export const useTaskStore = create<TaskState>()(devtools(storeApi));
+export const useTaskStore = create<TaskState>()(
+  devtools(persist(storeApi, { name: "task-store" }))
+);
