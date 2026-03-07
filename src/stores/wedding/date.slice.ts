@@ -6,6 +6,7 @@ export interface DateSlice {
   eventHHMM: () => string;
 
   setEvenDate: (partialDate: string) => void;
+  setEvenTime: (evenTime: string) => void;
 }
 
 export const createDateSlice: StateCreator<DateSlice> = (set, get) => ({
@@ -33,6 +34,16 @@ export const createDateSlice: StateCreator<DateSlice> = (set, get) => ({
 
       newDate.setFullYear(year, month, day);
 
+      return { eventDate: newDate };
+    }),
+
+  setEvenTime: (evenTime: string) =>
+    set((state) => {
+      const hours = parseInt(evenTime.split(":")[0]);
+      const minutes = parseInt(evenTime.split(":")[1]);
+
+      const newDate = new Date(state.eventDate);
+      newDate.setHours(hours, minutes);
       return { eventDate: newDate };
     }),
 });
