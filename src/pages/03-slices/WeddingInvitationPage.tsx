@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import { WhiteCard } from "../../components";
 import { useWeddingBoundStore } from "../../stores/wedding";
 
@@ -15,6 +16,16 @@ export const WeddingInvitationPage = () => {
 
   const setEvenDate = useWeddingBoundStore((state) => state.setEvenDate);
   const setEvenTime = useWeddingBoundStore((state) => state.setEvenTime);
+  const eventDate = useWeddingBoundStore((state) => state.eventDate);
+
+  const isConfirmed = useWeddingBoundStore((state) => state.isConfirmed);
+  const setIsConfirmed = useWeddingBoundStore((state) => state.setIsConfirmed);
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(firstName, lastName, gestCount, eventDate, isConfirmed);
+  };
 
   return (
     <>
@@ -24,7 +35,7 @@ export const WeddingInvitationPage = () => {
 
       <WhiteCard className="flex items-center justify-center p-12">
         <div className="mx-auto w-full max-w-[550px]">
-          <form>
+          <form onSubmit={(e) => onSubmit(e)}>
             <div className="-mx-3 flex flex-wrap">
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">
@@ -115,6 +126,8 @@ export const WeddingInvitationPage = () => {
                     name="isComing"
                     id="radioButton1"
                     className="h-5 w-5"
+                    checked={isConfirmed}
+                    onChange={() => setIsConfirmed(true)}
                   />
                   <label className="pl-3 text-base font-medium text-[#07074D]">
                     Si
@@ -126,6 +139,8 @@ export const WeddingInvitationPage = () => {
                     name="isComing"
                     id="radioButton2"
                     className="h-5 w-5"
+                    checked={!isConfirmed}
+                    onChange={() => setIsConfirmed(false)}
                   />
                   <label className="pl-3 text-base font-medium text-[#07074D]">
                     No
